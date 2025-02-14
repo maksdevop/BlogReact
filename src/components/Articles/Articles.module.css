@@ -7,7 +7,7 @@
     box-shadow: 2px 2px 5px 4px rgba(71, 69, 69, 0.5);
 }
 
-.arcticleTitle {
+.articleTitle {
     font-weight: 600;
     font-size: 24px;
     text-align: left;
@@ -31,7 +31,7 @@
 
 
 
-.arcticleTags {
+.articleTags {
     cursor: pointer;
     margin-right: 5px;
     padding: 2px 10px;
@@ -45,17 +45,17 @@
     justify-content: space-between;
 }
 
-.arcticleUser {
+.articleUser {
     display: flex;
     justify-content: center;
 }
-.arcticleWrap {
+.articleWrap {
     text-align: left;
 }
 
 
 
-.arcticleUserImg {
+.articleUserImg {
     margin-left: 5px;
     width: 45px;
     height: 45px;

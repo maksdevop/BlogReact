@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Articles from './components/Articles/Articles'
 import { Spin , Alert  } from 'antd'
+import MoreInfoPage from './components/more-info-page/MoreInfoPage'
+import SignIn from './components/sign-in/SignIn'
+import SignUp from './components/sign-up/SignUp'
+import Header from './components/header/Header'
 function App() {
   const [currentPage, setCurrentPage] = useState(1); 
   const [totalPages, setTotalPages] = useState(0); 
@@ -58,15 +62,17 @@ function App() {
 
   return (
     <>
-      {!isloading && <Articles articles={articles} handlePageChange={handlePageChange} currentPage={currentPage} totalPages={totalPages}/>}
-      {/* <Routes>
+      <Header />
+      <Routes>
+        {!isloading && <Route  path='/' element={<Articles articles={articles} handlePageChange={handlePageChange} currentPage={currentPage} totalPages={totalPages}/>}/>}
+        <Route path='/articles/:slug' element={<MoreInfoPage />} />
         <Route path='/signIn' element={<SignIn />} />
         <Route path='/signUp' element={<SignUp />} />
-        <Route path='/profile ' element={<Profile />} />
-        <Route path='*' element={<NotFound />} />
+        {/* <Route path='/profile ' element={<Profile />} />
+        <Route path='*' element={<NotFound />} /> */}
 
 
-      </Routes> */}
+      </Routes>
     </>
   )
 }
