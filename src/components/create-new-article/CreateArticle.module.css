@@ -1,7 +1,7 @@
 .signIn {
     background-color: white;
     border-radius: 6px;
-    display: inline-block;
+    /* display: inline-block; */
     padding: 50px 30px;
     margin-top: 60px;
 }
@@ -13,13 +13,33 @@
     align-items: start;
 }
 
-.password , .email , .userName {
-    width: 320px;
+.title , .shortDescription , .textArea , .tag {
+    width: 875px;
     padding: 8px 12px;
     border-radius: 4px;
     border: 1px solid #D9D9D9;
     outline: none;
+    resize: none;
+}
 
+.tag {
+    margin-top: 5px;
+    width: 300px ;
+}
+
+.btnDelete , .btnAdd {
+    cursor: pointer;
+    padding: 10px 35px;
+    color: #F5222D;
+    background-color: white;
+    border: 1px solid #F5222D;
+    border-radius: 4px;
+    margin-left: 15px;
+}
+
+.btnAdd {
+    color: #1890FF;
+    border: 1px solid #1890FF;
 }
 
 .btnLogin {
@@ -31,22 +51,21 @@
     padding: 8px 0;
     border: none;
     border-radius: 4px;
-    margin: 20px auto 10px auto;
+    margin: 20px 0 10px 0;
 }
 
-.labelEmail {
-    margin-top: 15px;
+.labelTitle {
+    margin-top: 20px;
     margin-bottom: 5px;
 }
 
-.labelPassword {
-    margin-top: 15px;
+.labelShortDescription {
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 
-.labelPasswordAgain {
+.labelTags {
     margin-top: 15px;
-    margin-bottom: 5px;
 }
 
 .info {
@@ -56,20 +75,4 @@
 .info a {
     color: #1890FF;
     text-decoration: none;
-}
-
-.agreementWrap {
-    display: flex;
-    margin-top: 30px;
-    border-top: 1px solid #E8E8E8;
-    padding-top: 8px;
-}
-
-.agreement {
-    text-align: left;
-    margin-left: 10px;
-}
-
-.checkbox {
-    width: 16px;
 }
