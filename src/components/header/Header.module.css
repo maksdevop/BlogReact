@@ -1,32 +1,64 @@
 .wrap {
-    background-color: white;
-    padding: 20px 50px;
-    min-width: 900px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 10px;
-}
-
-.signIn {
-    margin-right: 30px;
+  background-color: white;
+  padding: 20px 50px;
+  min-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
 }
 
 .title {
-    font-size: 18px;
-    color: #000000D9;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
-.signIn , .signUp {
-    color:  black;
-    text-decoration: none;
+.signIn {
+  margin-right: 30px;
+}
+
+.title {
+  font-size: 18px;
+  color: #000000d9;
+  text-decoration: none;
+}
+
+.signIn,
+.signUp {
+  color: black;
+  text-decoration: none;
 }
 
 .active {
-    padding: 10px 15px;
-    background-color:white;
-    border: 1px solid #52C41A;
-    border-radius: 5px;
-    color: #52C41A;
+  padding: 6px 15px;
+  background-color: white;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  text-decoration: none;
 }
 
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.imageUser {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.userName {
+  font-size: 22px;
+  margin: 0 10px;
+}
+
+.logOut {
+  padding: 10px 25px;
+  background-color: white;
+  border: 1px solid #000000bf;
+  border-radius: 5px;
+  color: #000000bf;
+  margin-left: 10px;
+  cursor: pointer;
+}

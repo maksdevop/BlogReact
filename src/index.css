@@ -11,12 +11,9 @@
 }
 
 body {
-  /* background-color: grey; */
-background-color: rgb(175, 176, 177);
+  background-color: rgb(175, 176, 177);
   margin: 20px 0;
-  /* text-align: center; */
   display: flex;
-  /* place-items: center; */
 
 }
 
