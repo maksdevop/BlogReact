@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/registrationSliсe';
-
+import { useLoginUserMutation } from '../../store/apiSlice';
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
