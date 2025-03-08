@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/registrationSliсe';
-import { useLoginUserMutation } from '../../store/apiSlice';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -58,9 +57,7 @@ const SignIn = () => {
           })}
           placeholder="Email address"
           onBlur={() => trigger('email')}
-          className={
-            errors.email ? `${styles.email} ${styles.inputRed}` : styles.email
-          }
+          className={errors.email ? `${styles.email} ${styles.inputRed}` : styles.email}
         />
         {errors.email && <p className={styles.error}>{errors.email.message}</p>}
         <label className={styles.labelPassword} htmlFor="">
@@ -72,15 +69,9 @@ const SignIn = () => {
           })}
           placeholder="Password"
           onBlur={() => trigger('password')}
-          className={
-            errors.password
-              ? `${styles.password} ${styles.inputRed}`
-              : styles.password
-          }
+          className={errors.password ? `${styles.password} ${styles.inputRed}` : styles.password}
         />
-        {errors.password && (
-          <p className={styles.error}>{errors.password.message}</p>
-        )}
+        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
         <button type="submit" className={styles.btnLogin}>
           Login
         </button>

@@ -9,9 +9,16 @@ export const apiSlice = createApi({
     getArticles: builder.query({
       query: ({ limit = 10, offset = 0 }) => `/articles?limit=${limit}&offset=${offset}`,
       providesTags: (result) =>
-        result
-          ? [...result.articles.map(({ slug }) => ({ type: 'Article', id: slug })), 'Article']
-          : ['Article'],
+        result?.articles
+          ? [
+              ...result.articles.map(({ slug }) => ({ type: 'Article', id: slug })),
+              { type: 'Article', id: 'LIST' },
+            ]
+          : [{ type: 'Article', id: 'LIST' }],
+    }),
+    getArticleBySlug: builder.query({
+      query: (slug) => `/articles/${slug}`,
+      providesTags: (result, error, slug) => [{ type: 'Article', id: slug }],
     }),
     createArticle: builder.mutation({
       query: (newArticle) => ({
@@ -19,39 +26,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: { article: newArticle },
       }),
-    }),
-    createUser: builder.mutation({
-      query: (newUser) => ({
-        url: '/users',
-        method: 'POST',
-        body: newUser,
-      }),
-    }),
-    loginUser: builder.mutation({
-      query: (userCredentials) => ({
-        url: '/users/login',
-        method: 'POST',
-        body: { user: userCredentials },
-      }),
-      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const { data } = await queryFulfilled;
-      //     const token = data.user.token;
-      //     if (typeof token === 'string') {
-      //       localStorage.setItem('token', JSON.stringify(token));
-      //     } else {
-      //       console.error('Invalid token format:', token);
-      //     }
-      //   } catch (error) {
-      //     console.error('Error storing token:', error);
-      //   }
-      // },
-    }),
-    deleteArticle: builder.mutation({
-      query: (articleSlug) => ({
-        url: `/articles/${articleSlug}`,
-        method: 'DELETE',
-      }),
+      invalidatesTags: [{ type: 'Article', id: 'LIST' }],
     }),
     updateArticle: builder.mutation({
       query: ({ slug, updatedArticle }) => ({
@@ -59,23 +34,39 @@ export const apiSlice = createApi({
         method: 'PUT',
         body: { article: updatedArticle },
       }),
+      invalidatesTags: (result, error, { slug }) => [
+        { type: 'Article', id: slug },
+        { type: 'Article', id: 'LIST' },
+      ],
+    }),
+    deleteArticle: builder.mutation({
+      query: (articleSlug) => ({
+        url: `/articles/${articleSlug}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, articleSlug) => [
+        { type: 'Article', id: articleSlug },
+        { type: 'Article', id: 'LIST' },
+      ],
     }),
     toggleLike: builder.mutation({
       query: ({ slug, isLiked }) => ({
         url: `/articles/${slug}/favorite`,
-        method: isLiked ? 'DELETE' : 'POST', // Убираем лайк или добавляем лайк
+        method: isLiked ? 'DELETE' : 'POST',
       }),
-      invalidatesTags: (result, error, { slug }) => [{ type: 'Article', id: slug }],
+      invalidatesTags: (result, error, { slug }) => [
+        { type: 'Article', id: slug },
+        { type: 'Article', id: 'LIST' },
+      ],
     }),
   }),
 });
 
 export const {
   useGetArticlesQuery,
+  useGetArticleBySlugQuery,
   useCreateArticleMutation,
-  useCreateUserMutation,
-  useLoginUserMutation,
-  useDeleteArticleMutation,
   useUpdateArticleMutation,
+  useDeleteArticleMutation,
   useToggleLikeMutation,
 } = apiSlice;

@@ -36,19 +36,18 @@ const CreateArticle = ({ mode = 'create', initialData = {}, articleSlug }) => {
       body: data.text,
       tagList: data.tags.map((tag) => tag.value),
     };
-    console.log(formattedData);
     if (mode === 'create') {
       await createArticle(formattedData).unwrap();
+      navigate('/');
     } else if (mode === 'edit') {
       await updateArticle({ slug: articleSlug, updatedArticle: formattedData }).unwrap();
-      console.log(formattedData);
       reset({
         title: formattedData.title,
         shortDescription: formattedData.description,
         text: formattedData.body,
         tags: formattedData.tagList ? formattedData.tagList.map((tag) => ({ value: tag })) : [],
       });
-      // navigate('/');
+      navigate('/');
     }
     reset();
   };
@@ -56,9 +55,7 @@ const CreateArticle = ({ mode = 'create', initialData = {}, articleSlug }) => {
   useEffect(() => {
     if (mode === 'edit' && initialData) {
       for (const [key, value] of Object.entries(initialData)) {
-        console.log(initialData);
         if (key === 'tags') {
-          // Устанавливаем теги вручную
           value.forEach((tag, index) => {
             setValue(`tags[${index}].value`, tag.value);
           });

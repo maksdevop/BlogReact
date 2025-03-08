@@ -18,7 +18,6 @@ const Articles = () => {
   const handleLike = async (slug, isLiked) => {
     try {
       await toggleLike({ slug, isLiked }).unwrap();
-      console.log(isLiked ? 'Лайк удален' : 'Лайк добавлен');
     } catch (error) {
       console.error('Ошибка при изменении лайка:', error);
     }
@@ -55,7 +54,6 @@ const Articles = () => {
               >
                 {article.favorited ? '❤️' : '🤍'} {article.favoritesCount}
               </button>
-              {/* <p className={styles.articleFavoritesCount}>{article.favoritesCount}</p> */}
             </div>
             <div>
               {article.tagList.map((tag, index) => (

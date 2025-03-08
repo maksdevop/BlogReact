@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/registrationSliсe';
-import { useCreateUserMutation } from '../../store/apiSlice';
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -73,15 +72,9 @@ const SignUp = () => {
             placeholder="User name"
             type="text"
             onBlur={() => trigger('userName')}
-            className={
-              errors.userName
-                ? `${styles.userName} ${styles.inputRed}`
-                : styles.userName
-            }
+            className={errors.userName ? `${styles.userName} ${styles.inputRed}` : styles.userName}
           />
-          {errors.userName && (
-            <p className={styles.error}>{errors.userName.message}</p>
-          )}
+          {errors.userName && <p className={styles.error}>{errors.userName.message}</p>}
 
           <label className={styles.labelEmail} htmlFor="email">
             Email address
@@ -97,13 +90,9 @@ const SignUp = () => {
             placeholder="Email address"
             type="email"
             onBlur={() => trigger('email')}
-            className={
-              errors.email ? `${styles.email} ${styles.inputRed}` : styles.email
-            }
+            className={errors.email ? `${styles.email} ${styles.inputRed}` : styles.email}
           />
-          {errors.email && (
-            <p className={styles.error}>{errors.email.message}</p>
-          )}
+          {errors.email && <p className={styles.error}>{errors.email.message}</p>}
 
           <label className={styles.labelPassword} htmlFor="password">
             Password
@@ -122,16 +111,10 @@ const SignUp = () => {
             })}
             placeholder="Password"
             type="password"
-            className={
-              errors.password
-                ? `${styles.password} ${styles.inputRed}`
-                : styles.password
-            }
+            className={errors.password ? `${styles.password} ${styles.inputRed}` : styles.password}
             onBlur={() => trigger('password')}
           />
-          {errors.password && (
-            <p className={styles.error}>{errors.password.message}</p>
-          )}
+          {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
           <label className={styles.labelPasswordAgain} htmlFor="passwordAgain">
             Repeat Password
@@ -146,21 +129,13 @@ const SignUp = () => {
             type="password"
             onBlur={() => trigger('passwordAgain')}
             className={
-              errors.passwordAgain
-                ? `${styles.password} ${styles.inputRed}`
-                : styles.password
+              errors.passwordAgain ? `${styles.password} ${styles.inputRed}` : styles.password
             }
           />
-          {errors.passwordAgain && (
-            <p className={styles.error}>{errors.passwordAgain.message}</p>
-          )}
+          {errors.passwordAgain && <p className={styles.error}>{errors.passwordAgain.message}</p>}
 
           <div className={styles.agreementWrap}>
-            <input
-              {...register('consent')}
-              className={styles.checkbox}
-              type="checkbox"
-            />
+            <input {...register('consent')} className={styles.checkbox} type="checkbox" />
             <p className={styles.agreement}>
               I agree to the processing of my personal <br />
               information
@@ -169,11 +144,7 @@ const SignUp = () => {
         </div>
         <button
           type="submit"
-          className={
-            !isConsent
-              ? `${styles.btnLogin} ${styles.disabled}`
-              : `${styles.btnLogin}`
-          }
+          className={!isConsent ? `${styles.btnLogin} ${styles.disabled}` : `${styles.btnLogin}`}
           disabled={!isConsent}
         >
           Create

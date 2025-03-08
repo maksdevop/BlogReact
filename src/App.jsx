@@ -23,7 +23,6 @@ function App() {
         <Route path="/createArticle" element={<CreateArticle />} />
         <Route path="/editArticle/:slug" element={<EditArticle />} />
 
-        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
   );
