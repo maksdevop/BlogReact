@@ -1,78 +1,94 @@
 .signIn {
-    background-color: white;
-    border-radius: 6px;
-    /* display: inline-block; */
-    padding: 50px 30px;
-    margin-top: 60px;
+  background-color: white;
+  border-radius: 6px;
+  /* display: inline-block; */
+  padding: 50px 30px;
+  margin-top: 60px;
 }
 
 .wrap {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
 }
 
-.title , .shortDescription , .textArea , .tag {
-    width: 875px;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid #D9D9D9;
-    outline: none;
-    resize: none;
+.title,
+.shortDescription,
+.textInput,
+.tag {
+  width: 875px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  outline: none;
+  resize: none;
+}
+
+.textInput {
+  padding-bottom: 200px;
 }
 
 .tag {
-    margin-top: 5px;
-    width: 300px ;
+  margin-top: 5px;
+  width: 300px;
 }
 
-.btnDelete , .btnAdd {
-    cursor: pointer;
-    padding: 10px 35px;
-    color: #F5222D;
-    background-color: white;
-    border: 1px solid #F5222D;
-    border-radius: 4px;
-    margin-left: 15px;
+.btnDelete,
+.btnAdd {
+  cursor: pointer;
+  padding: 10px 35px;
+  color: #f5222d;
+  background-color: white;
+  border: 1px solid #f5222d;
+  border-radius: 4px;
+  margin-left: 15px;
 }
 
 .btnAdd {
-    color: #1890FF;
-    border: 1px solid #1890FF;
+  color: #1890ff;
+  border: 1px solid #1890ff;
+  display: inline;
+  margin-left: 312px;
+  margin-top: 10px;
 }
 
 .btnLogin {
-    cursor: pointer;
-    display: block;
-    width: 320px;
-    background-color: #1890FF;
-    color: white;
-    padding: 8px 0;
-    border: none;
-    border-radius: 4px;
-    margin: 20px 0 10px 0;
+  cursor: pointer;
+  display: block;
+  width: 320px;
+  background-color: #1890ff;
+  color: white;
+  padding: 8px 0;
+  border: none;
+  border-radius: 4px;
+  margin: 20px 0 10px 0;
 }
 
 .labelTitle {
-    margin-top: 20px;
-    margin-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 .labelShortDescription {
-    margin-top: 10px;
-    margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 .labelTags {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .info {
-    color: #8C8C8C;
+  color: #8c8c8c;
 }
 
 .info a {
-    color: #1890FF;
-    text-decoration: none;
+  color: #1890ff;
+  text-decoration: none;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
 }

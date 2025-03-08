@@ -8,6 +8,7 @@ import SignUp from './components/sign-up/SignUp';
 import Header from './components/header/Header';
 import EditProfile from './components/edit-profile/EditProfile';
 import CreateArticle from './components/create-new-article/CreateArticle';
+import EditArticle from './components/edit-article/EditArticle';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/profile" element={<EditProfile />} />
         <Route path="/createArticle" element={<CreateArticle />} />
+        <Route path="/editArticle/:slug" element={<EditArticle />} />
 
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

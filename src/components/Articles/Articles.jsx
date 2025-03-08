@@ -3,16 +3,25 @@ import React from 'react';
 import styles from './Articles.module.css';
 import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
-import { useGetArticlesQuery } from '../../store/apiSlice';
+import { useGetArticlesQuery, useToggleLikeMutation } from '../../store/apiSlice';
 import { Spin, Alert } from 'antd';
 
 const Articles = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const offset = (currentPage - 1) * 10;
   const { data, error, isLoading } = useGetArticlesQuery({ limit: 10, offset });
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+  const [toggleLike] = useToggleLikeMutation();
+
+  const handleLike = async (slug, isLiked) => {
+    try {
+      await toggleLike({ slug, isLiked }).unwrap();
+      console.log(isLiked ? 'Лайк удален' : 'Лайк добавлен');
+    } catch (error) {
+      console.error('Ошибка при изменении лайка:', error);
+    }
   };
 
   if (isLoading) {
@@ -26,12 +35,7 @@ const Articles = () => {
   if (error) {
     return (
       <div className="error">
-        <Alert
-          message="Ошибка"
-          description={error.message}
-          type="error"
-          showIcon
-        />
+        <Alert message="Ошибка" description={error.message} type="error" showIcon />
       </div>
     );
   }
@@ -42,16 +46,16 @@ const Articles = () => {
         <div key={index} className={styles.articles}>
           <div className={styles.articleWrap}>
             <div className={styles.articleTitleWrap}>
-              <Link
-                to={`/articles/${article.slug}`}
-                className={styles.articleTitle}
-              >
+              <Link to={`/articles/${article.slug}`} className={styles.articleTitle}>
                 {article.title}
               </Link>
-              <img className={styles.articleFavotite} src="/heart.svg" alt="" />
-              <p className={styles.articleFavoritesCount}>
-                {article.favoritesCount}
-              </p>
+              <button
+                className={styles.articleFavorite}
+                onClick={() => handleLike(article.slug, article.favorited)}
+              >
+                {article.favorited ? '❤️' : '🤍'} {article.favoritesCount}
+              </button>
+              {/* <p className={styles.articleFavoritesCount}>{article.favoritesCount}</p> */}
             </div>
             <div>
               {article.tagList.map((tag, index) => (
@@ -64,9 +68,7 @@ const Articles = () => {
           </div>
           <div className={styles.articleUser}>
             <div className={styles.articleUserWrap}>
-              <h4 className={styles.articleUserName}>
-                {article.author.username}
-              </h4>
+              <h4 className={styles.articleUserName}>{article.author.username}</h4>
               <p className={styles.articlePostTime}>
                 {new Date(article.createdAt).toLocaleDateString('en-US', {
                   month: 'long',
@@ -75,11 +77,7 @@ const Articles = () => {
                 })}
               </p>
             </div>
-            <img
-              className={styles.articleUserImg}
-              src={article.author.image}
-              alt="IMAGE"
-            />
+            <img className={styles.articleUserImg} src={article.author.image} alt="IMAGE" />
           </div>
         </div>
       ))}
