@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './SignUp.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -21,7 +20,7 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await createUser({
+      await createUser({
         user: {
           username: data.userName,
           email: data.email,

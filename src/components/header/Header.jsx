@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
 import styles from '../header/Header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, setUser } from '../../store/registrationSliсe';
+import { logout } from '../../store/registrationSliсe';
 const Header = () => {
   const user = useSelector((state) => state.registration.user);
   const { userName, urlImage } = user || {};

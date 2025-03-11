@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import styles from './MoreInfoPage.module.css';
@@ -15,14 +14,14 @@ const MoreInfoPage = () => {
   const handleDelete = async () => {
     try {
       await deleteArticle(slug).unwrap();
-      navigate('/'); 
+      navigate('/');
     } catch (error) {
       console.error('Ошибка удаления статьи:', error);
     }
   };
 
   const handleEdit = () => {
-    navigate(`/editArticle/${slug}`, { state: { article: articleData?.article } }); 
+    navigate(`/editArticle/${slug}`, { state: { article: articleData?.article } });
   };
 
   if (isLoading) {

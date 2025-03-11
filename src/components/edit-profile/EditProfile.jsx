@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './EditProfile.module.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -49,15 +48,9 @@ const EditProfile = () => {
             placeholder="User name"
             type="text"
             onBlur={() => trigger('userName')}
-            className={
-              errors.userName
-                ? `${styles.userName} ${styles.inputRed}`
-                : styles.userName
-            }
+            className={errors.userName ? `${styles.userName} ${styles.inputRed}` : styles.userName}
           />
-          {errors.userName && (
-            <p className={styles.error}>{errors.userName.message}</p>
-          )}
+          {errors.userName && <p className={styles.error}>{errors.userName.message}</p>}
           <label className={styles.labelEmail} htmlFor="">
             Email addres
           </label>
@@ -72,13 +65,9 @@ const EditProfile = () => {
             placeholder="Email address"
             onBlur={() => trigger('email')}
             type="email"
-            className={
-              errors.email ? `${styles.email} ${styles.inputRed}` : styles.email
-            }
+            className={errors.email ? `${styles.email} ${styles.inputRed}` : styles.email}
           />
-          {errors.email && (
-            <p className={styles.error}>{errors.email.message}</p>
-          )}
+          {errors.email && <p className={styles.error}>{errors.email.message}</p>}
           <label className={styles.labelPassword} htmlFor="">
             New password
           </label>
@@ -98,14 +87,10 @@ const EditProfile = () => {
             type="password"
             onBlur={() => trigger('newPassword')}
             className={
-              errors.newPassword
-                ? `${styles.password} ${styles.inputRed}`
-                : styles.password
+              errors.newPassword ? `${styles.password} ${styles.inputRed}` : styles.password
             }
           />
-          {errors.newPassword && (
-            <p className={styles.error}>{errors.newPassword.message}</p>
-          )}
+          {errors.newPassword && <p className={styles.error}>{errors.newPassword.message}</p>}
 
           <label className={styles.labelPasswordAgain} htmlFor="">
             Avatar image (url)
@@ -121,15 +106,9 @@ const EditProfile = () => {
             placeholder="Avatar image"
             type="text"
             onBlur={() => trigger('image')}
-            className={
-              errors.image
-                ? `${styles.password} ${styles.inputRed}`
-                : styles.password
-            }
+            className={errors.image ? `${styles.password} ${styles.inputRed}` : styles.password}
           />
-          {errors.image && (
-            <p className={styles.error}>{errors.image.message}</p>
-          )}
+          {errors.image && <p className={styles.error}>{errors.image.message}</p>}
         </div>
         <button type="submit" className={styles.btnLogin}>
           Save

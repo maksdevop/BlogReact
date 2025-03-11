@@ -1,4 +1,3 @@
-// src/components/Articles/Articles.js
 import React from 'react';
 import styles from './Articles.module.css';
 import { Pagination } from 'antd';
