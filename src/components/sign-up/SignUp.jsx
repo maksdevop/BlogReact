@@ -19,13 +19,6 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log('Отправляемые данные:', {
-      user: {
-        username: data.userName,
-        email: data.email,
-        password: data.password,
-      },
-    });
     try {
       const resp = await createUser({
         username: data.userName,
