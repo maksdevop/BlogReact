@@ -22,12 +22,15 @@ const SignIn = () => {
         email: data.email,
         password: data.password,
       }).unwrap();
+
+      localStorage.setItem('token', response.user.token);
       dispatch(
         setUser({
           userName: response.user.username,
           email: response.user.email,
           token: response.user.token,
-          urlImage: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
+          urlImage:
+            response.user.urlImage || 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
         })
       );
       navigate('/');

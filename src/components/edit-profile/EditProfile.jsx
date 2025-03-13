@@ -1,11 +1,14 @@
 import styles from './EditProfile.module.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../store/registrationSliсe';
 import { useNavigate } from 'react-router-dom';
+import { useUpdateUserMutation } from '../../store/apiSlice';
+import { setUser } from '../../store/registrationSliсe';
+
 const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [updateUser] = useUpdateUserMutation();
   const {
     register,
     handleSubmit,
@@ -13,16 +16,28 @@ const EditProfile = () => {
     trigger,
     reset,
   } = useForm();
-  const onSubmit = (data) => {
-    reset();
-    dispatch(
-      setUser({
-        userName: data.userName,
-        urlImage: data.image,
-        password: data.password,
-      })
-    );
-    navigate('/');
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await updateUser({
+        username: data.userName,
+        email: data.email,
+        password: data.newPassword,
+        image: data.image,
+      }).unwrap();
+      dispatch(
+        setUser({
+          userName: response.user.username,
+          email: response.user.email,
+          token: response.user.token,
+          urlImage: response.user.image,
+        })
+      );
+      reset();
+      navigate('/');
+    } catch (err) {
+      console.error('Ошибка обновления профиля:', err);
+    }
   };
 
   return (
@@ -52,7 +67,7 @@ const EditProfile = () => {
           />
           {errors.userName && <p className={styles.error}>{errors.userName.message}</p>}
           <label className={styles.labelEmail} htmlFor="">
-            Email addres
+            Email address
           </label>
           <input
             {...register('email', {

@@ -5,7 +5,7 @@ const baseQueryWithAuth = fetchBaseQuery({
   prepareHeaders: (headers) => {
     let token;
     try {
-      token = JSON.parse(localStorage.getItem('token'));
+      token = localStorage.getItem('token');
     } catch (e) {
       console.error('Invalid token format:', e);
     }

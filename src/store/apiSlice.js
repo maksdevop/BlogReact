@@ -68,6 +68,13 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
+    updateUser: builder.mutation({
+      query: (updatedUser) => ({
+        url: '/user',
+        method: 'PUT',
+        body: { user: updatedUser },
+      }),
+    }),
 
     loginUser: builder.mutation({
       query: (userCredentials) => ({
@@ -89,4 +96,5 @@ export const {
   useToggleLikeMutation,
   useCreateUserMutation,
   useLoginUserMutation,
+  useUpdateUserMutation,
 } = apiSlice;

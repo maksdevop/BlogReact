@@ -15,6 +15,12 @@
   text-decoration: none;
 }
 
+.articleText,
+.articleTags,
+.articleTitle {
+  max-width: 700px;
+}
+
 .articleTitleWrap {
   display: flex;
   align-items: center;

@@ -19,15 +19,24 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log('Отправляемые данные:', {
+      user: {
+        username: data.userName,
+        email: data.email,
+        password: data.password,
+      },
+    });
     try {
-      await createUser({
-        user: {
-          username: data.userName,
-          email: data.email,
-          password: data.password,
-          image: data.image,
-        },
+      const resp = await createUser({
+        username: data.userName,
+        email: data.email,
+        password: data.password,
       }).unwrap();
+
+      if (resp.user && resp.user.token) {
+        localStorage.setItem('token', resp.user.token);
+      }
+
       reset();
       dispatch(
         setUser({
@@ -36,6 +45,7 @@ const SignUp = () => {
           password: data.password,
         })
       );
+
       navigate('/');
     } catch (err) {
       console.error('Failed to register user: ', err);
