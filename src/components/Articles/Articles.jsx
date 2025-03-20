@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Articles.module.css';
 import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
@@ -6,27 +6,31 @@ import { useGetArticlesQuery, useToggleLikeMutation } from '../../store/apiSlice
 import { Spin, Alert } from 'antd';
 
 const Articles = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [currentPage, setCurrentPage] = useState(() => {
+    return parseInt(localStorage.getItem('currentPage')) || 1;
+  });
 
+  useEffect(() => {
+    localStorage.setItem('currentPage', currentPage);
+  }, [currentPage]);
+
+  const [errorMessage, setErrorMessage] = useState('');
   const offset = (currentPage - 1) * 10;
   const { data, error, isLoading } = useGetArticlesQuery({ limit: 10, offset });
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  const [toggleLike] = useToggleLikeMutation();
 
+  const [toggleLike] = useToggleLikeMutation();
   const handleLike = async (slug, isLiked) => {
     try {
       await toggleLike({ slug, isLiked }).unwrap();
-    } catch (error) {
-      if (error.data?.errors.error.name === 'UnauthorizedError') {
-        setErrorMessage('Войдите в систему!');
-      }
-      console.error('Ошибка при изменении лайка:', error);
+    } catch {
+      setErrorMessage('Пройдите авторизацию!');
+      setTimeout(() => setErrorMessage(''), 3000);
+      return;
     }
   };
-
   if (isLoading) {
     return (
       <div className="loading">
