@@ -14,6 +14,7 @@ const SignIn = () => {
     handleSubmit,
     formState: { errors },
     trigger,
+    setError,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -37,7 +38,18 @@ const SignIn = () => {
     } catch (err) {
       console.error('Failed to login user: ', err);
       if (err.data && err.data.errors) {
-        console.error('Ошибка сервера:', err.data.errors);
+        if (err.data.errors['email or password']) {
+          setError('password', {
+            type: 'server',
+            message: 'email or password is invalid',
+          });
+          setError('email', {
+            type: 'server',
+            message: 'email or password is invalid',
+          });
+        }
+      } else {
+        console.error('Unexpected error:', err);
       }
     }
   };
@@ -71,6 +83,7 @@ const SignIn = () => {
           })}
           placeholder="Password"
           onBlur={() => trigger('password')}
+          type="password"
           className={errors.password ? `${styles.password} ${styles.inputRed}` : styles.password}
         />
         {errors.password && <p className={styles.error}>{errors.password.message}</p>}

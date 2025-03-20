@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const storedUser = JSON.parse(localStorage.getItem('user') || '{}') || {
   email: '',
   userName: '',
-  urlImage: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
+  urlImage: '',
   password: '',
 };
 

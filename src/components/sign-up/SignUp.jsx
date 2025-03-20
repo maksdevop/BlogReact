@@ -16,6 +16,7 @@ const SignUp = () => {
     formState: { errors },
     trigger,
     reset,
+    setError,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -43,7 +44,19 @@ const SignUp = () => {
     } catch (err) {
       console.error('Failed to register user: ', err);
       if (err.data && err.data.errors) {
-        console.error('Ошибка сервера:', err.data.errors);
+        if (err.data.errors['username']) {
+          setError('userName', {
+            type: 'server',
+            message: 'is already taken',
+          });
+        } else if (err.data.errors['email']) {
+          setError('email', {
+            type: 'server',
+            message: 'is already taken',
+          });
+        }
+      } else {
+        console.error('Unexpected error:', err);
       }
     }
   };

@@ -91,3 +91,22 @@
   color: red;
   font-size: 14px;
 }
+
+.tagsContainer {
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.tag {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.addTagContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.addTagInput {
+  flex: 1;
+}

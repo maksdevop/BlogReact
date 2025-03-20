@@ -47,6 +47,22 @@ p img {
   justify-content: space-between;
 }
 
+.headerWrap {
+  display: flex;
+  align-items: center;
+}
+
+.favoritesCount {
+  margin-left: 10px;
+}
+
+.articleFavorite {
+  border: none;
+  background-color: inherit;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 .articleTags {
   cursor: pointer;
   padding: 2px 10px;
@@ -83,4 +99,45 @@ p img {
 
 .actions {
   margin-right: 20px;
+}
+
+.confirmation {
+  position: absolute;
+  right: 100px;
+  top: 250px;
+  padding: 20px;
+  width: 250px;
+  height: 130px;
+  background-color: rgb(238, 238, 238);
+  border-radius: 20px;
+}
+
+.confirmationTitle::before {
+  content: '';
+  display: inline-block;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/41/41943.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.confirmationButtons {
+  display: flex;
+  justify-content: end;
+}
+
+.btnNo,
+.btnYes {
+  cursor: pointer;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.btnYes {
+  margin: 0 10px;
+  background-color: #1890ff;
 }

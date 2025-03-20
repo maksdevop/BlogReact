@@ -3,12 +3,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const baseQueryWithAuth = fetchBaseQuery({
   baseUrl: 'https://blog-platform.kata.academy/api',
   prepareHeaders: (headers) => {
-    let token;
-    try {
-      token = localStorage.getItem('token');
-    } catch (e) {
-      console.error('Invalid token format:', e);
-    }
+    const token = localStorage.getItem('token');
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }

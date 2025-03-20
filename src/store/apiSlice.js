@@ -18,7 +18,7 @@ export const apiSlice = createApi({
     }),
     getArticleBySlug: builder.query({
       query: (slug) => `/articles/${slug}`,
-      providesTags: (result, error, slug) => [{ type: 'Article', id: slug }],
+      providesTags: (slug) => [{ type: 'Article', id: slug }],
     }),
     createArticle: builder.mutation({
       query: (newArticle) => ({
@@ -34,7 +34,7 @@ export const apiSlice = createApi({
         method: 'PUT',
         body: { article: updatedArticle },
       }),
-      invalidatesTags: (result, error, { slug }) => [
+      invalidatesTags: ({ slug }) => [
         { type: 'Article', id: slug },
         { type: 'Article', id: 'LIST' },
       ],
@@ -44,7 +44,7 @@ export const apiSlice = createApi({
         url: `/articles/${articleSlug}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, articleSlug) => [
+      invalidatesTags: (articleSlug) => [
         { type: 'Article', id: articleSlug },
         { type: 'Article', id: 'LIST' },
       ],
@@ -84,6 +84,11 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
+
+    getUser: builder.query({
+      query: () => '/user',
+      providesTags: ['User'],
+    }),
   }),
 });
 
@@ -97,4 +102,5 @@ export const {
   useCreateUserMutation,
   useLoginUserMutation,
   useUpdateUserMutation,
+  useGetUserQuery,
 } = apiSlice;

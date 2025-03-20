@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import styles from './Articles.module.css';
 import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
@@ -6,18 +6,26 @@ import { useGetArticlesQuery, useToggleLikeMutation } from '../../store/apiSlice
 import { Spin, Alert } from 'antd';
 
 const Articles = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const offset = (currentPage - 1) * 10;
   const { data, error, isLoading } = useGetArticlesQuery({ limit: 10, offset });
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
   const [toggleLike] = useToggleLikeMutation();
+  if (data) {
+    console.log(data.articles);
+  }
 
   const handleLike = async (slug, isLiked) => {
     try {
       await toggleLike({ slug, isLiked }).unwrap();
     } catch (error) {
+      if (error.data?.errors.error.name === 'UnauthorizedError') {
+        setErrorMessage('Войдите в систему!');
+      }
       console.error('Ошибка при изменении лайка:', error);
     }
   };
@@ -40,6 +48,7 @@ const Articles = () => {
 
   return (
     <>
+      {errorMessage && <p style={{ color: 'red', margin: '5px 0' }}>{errorMessage}</p>}
       {data.articles.map((article, index) => (
         <div key={index} className={styles.articles}>
           <div className={styles.articleWrap}>
@@ -61,7 +70,7 @@ const Articles = () => {
                 </button>
               ))}
             </div>
-            <p className={styles.articleText}>{article.body}</p>
+            <p className={styles.articleText}>{article.description}</p>
           </div>
           <div className={styles.articleUser}>
             <div className={styles.articleUserWrap}>
@@ -83,6 +92,7 @@ const Articles = () => {
         current={currentPage}
         total={data.articlesCount}
         onChange={handlePageChange}
+        showSizeChanger={false}
       />
     </>
   );

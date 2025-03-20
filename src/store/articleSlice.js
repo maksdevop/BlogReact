@@ -1,32 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid'; // Для создания уникальных ID
+
 const initialState = {
   title: '',
   shortDescription: '',
   text: '',
-  tags: [{ value: '' }],
+  tags: [{ id: nanoid(), value: '' }],
 };
 
 const articleSlice = createSlice({
   name: 'article',
   initialState,
-  reducers: {
-    updateArticle: (state, action) => {
-      return { ...state, ...action.payload };
-    },
-    addTag: (state) => {
-      state.tags.push({ value: '' });
-    },
-    removeTag: (state, action) => {
-      state.tags.splice(action.payload, 1);
-    },
-    updateTag: (state, action) => {
-      const { index, value } = action.payload;
-      state.tags[index].value = value;
-    },
-  },
 });
-
-export const { updateArticle, addTag, removeTag, updateTag } =
-  articleSlice.actions;
 
 export default articleSlice.reducer;
