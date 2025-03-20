@@ -54,7 +54,7 @@ export const apiSlice = createApi({
         url: `/articles/${slug}/favorite`,
         method: isLiked ? 'DELETE' : 'POST',
       }),
-      invalidatesTags: (result, error, { slug }) => [
+      invalidatesTags: ({ slug }) => [
         { type: 'Article', id: slug },
         { type: 'Article', id: 'LIST' },
       ],
