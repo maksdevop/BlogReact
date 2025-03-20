@@ -15,9 +15,6 @@ const Articles = () => {
     setCurrentPage(page);
   };
   const [toggleLike] = useToggleLikeMutation();
-  if (data) {
-    console.log(data.articles);
-  }
 
   const handleLike = async (slug, isLiked) => {
     try {

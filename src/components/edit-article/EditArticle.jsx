@@ -5,18 +5,17 @@ import { useEffect } from 'react';
 const EditArticle = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { article } = location.state || {}; // Получаем article из state
-  console.log(article);
-  console.log(location);
+  const { article } = location.state || {};
+
   useEffect(() => {
     if (!article) {
-      console.error('Article data is missing');
-      navigate('/'); // Перенаправляем пользователя на главную, если данные отсутствуют
+      console.error('Пустой массив');
+      navigate('/');
     }
   }, [article, navigate]);
 
   if (!article) {
-    return <div>Loading...</div>; // Показать что-то вместо ошибки
+    return <div>Loading...</div>;
   }
 
   return <CreateArticle mode="edit" initialData={article} articleSlug={article.slug} />;
