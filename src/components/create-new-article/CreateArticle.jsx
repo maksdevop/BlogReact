@@ -73,7 +73,7 @@ const CreateArticle = ({ mode = 'create', initialData = {}, articleSlug }) => {
   return (
     <div className={styles.signIn}>
       <h2 className={styles.mainTitle}>
-        {mode === 'create' ? 'Создать новую статью' : 'Редактировать статью'}
+        {mode === 'create' ? 'Create new article' : 'Edit article'}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.wrap}>
