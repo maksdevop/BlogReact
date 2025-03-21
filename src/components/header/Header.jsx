@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/registrationSliсe';
 import { useGetUserQuery, apiSlice } from '../../store/apiSlice';
-
+import { Button } from 'antd';
 const Header = () => {
   const user = useSelector((state) => state.registration.user);
   const { userName } = user || {};
@@ -48,16 +48,16 @@ const Header = () => {
       {!userName ? (
         <div>
           <Link className={styles.signIn} to={'/signIn'}>
-            Sign In
+            <Button>Sign In</Button>
           </Link>
-          <Link className={`${styles.signUp} ${styles.active}`} to={'/signUp'}>
-            Sign Up
+          <Link to={'/signUp'}>
+            <Button className={`${styles.signUp} ${styles.active}`}>Sign Up</Button>
           </Link>
         </div>
       ) : (
         <div className={styles.userInfo}>
-          <Link className={styles.active} to={'/createArticle'}>
-            Create article
+          <Link to={'/createArticle'}>
+            <Button className={styles.active}>Create article</Button>
           </Link>
           <Link
             to={'/profile'}
@@ -77,9 +77,9 @@ const Header = () => {
               alt="imageUser"
             />
           </Link>
-          <button onClick={logOut} className={styles.logOut}>
+          <Button onClick={logOut} className={styles.logOut}>
             Log Out
-          </button>
+          </Button>
         </div>
       )}
     </div>

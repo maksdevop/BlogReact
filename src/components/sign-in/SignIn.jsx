@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/registrationSliсe';
 import { useLoginUserMutation } from '../../store/apiSlice';
+import { Button } from 'antd';
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -87,9 +88,13 @@ const SignIn = () => {
           className={errors.password ? `${styles.password} ${styles.inputRed}` : styles.password}
         />
         {errors.password && <p className={styles.error}>{errors.password.message}</p>}
-        <button type="submit" className={styles.btnLogin}>
+        <Button
+          type="primary" // Делает кнопку синей, как в Ant Design по умолчанию
+          htmlType="submit" // Это важно для отправки формы
+          className={styles.btnLogin} // Подключение стилей
+        >
           Login
-        </button>
+        </Button>
       </form>
       <p className={styles.info}>
         Don’t have an account? <Link to={'/signUp'}>Sign Up.</Link>

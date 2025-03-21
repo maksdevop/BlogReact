@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/registrationSliсe';
 import { useCreateUserMutation } from '../../store/apiSlice';
+import { Button } from 'antd';
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -157,13 +158,14 @@ const SignUp = () => {
             </p>
           </div>
         </div>
-        <button
-          type="submit"
+        <Button
+          type="primary"
+          htmlType="submit"
           className={!isConsent ? `${styles.btnLogin} ${styles.disabled}` : `${styles.btnLogin}`}
           disabled={!isConsent}
         >
           Create
-        </button>
+        </Button>
       </form>
       <p className={styles.info}>
         Already have an account? <Link to={'/signIn'}>Sign In.</Link>

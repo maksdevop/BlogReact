@@ -1,29 +1,39 @@
 import styles from './EditProfile.module.css';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateUserMutation } from '../../store/apiSlice';
 import { setUser } from '../../store/registrationSliсe';
+import { useEffect } from 'react';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [updateUser] = useUpdateUserMutation();
+  const user = useSelector((state) => state.registration.user);
   const {
     register,
     handleSubmit,
     formState: { errors },
     trigger,
     reset,
+    setValue,
   } = useForm();
 
+  useEffect(() => {
+    for (const [key, value] of Object.entries(user)) {
+      setValue(key, value);
+    }
+  }, [setValue]);
+
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       const response = await updateUser({
         username: data.userName,
         email: data.email,
         password: data.newPassword,
-        image: data.image,
+        image: data.urlImage,
       }).unwrap();
       dispatch(
         setUser({
@@ -111,7 +121,7 @@ const EditProfile = () => {
             Avatar image (url)
           </label>
           <input
-            {...register('image', {
+            {...register('urlImage', {
               required: 'Введите адрес изображения',
               pattern: {
                 value: /^(ftp|http|https):\/\/[^ "]+$/,
@@ -120,10 +130,10 @@ const EditProfile = () => {
             })}
             placeholder="Avatar image"
             type="text"
-            onBlur={() => trigger('image')}
-            className={errors.image ? `${styles.password} ${styles.inputRed}` : styles.password}
+            onBlur={() => trigger('urlImage')}
+            className={errors.urlImage ? `${styles.password} ${styles.inputRed}` : styles.password}
           />
-          {errors.image && <p className={styles.error}>{errors.image.message}</p>}
+          {errors.urlImage && <p className={styles.error}>{errors.urlImage.message}</p>}
         </div>
         <button type="submit" className={styles.btnLogin}>
           Save

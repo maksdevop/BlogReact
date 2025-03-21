@@ -138,9 +138,9 @@ const CreateArticle = ({ mode = 'create', initialData = {}, articleSlug }) => {
             </Button>
           </div>
         </div>
-        <button type="submit" className={styles.btnLogin}>
+        <Button type="primary" htmlType="sumbit" className={styles.btnLogin}>
           {mode === 'create' ? 'Send' : 'Save Changes'}
-        </button>
+        </Button>
       </form>
     </div>
   );

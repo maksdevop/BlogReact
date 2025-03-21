@@ -28,8 +28,8 @@
   text-decoration: none;
 }
 
-.active {
-  padding: 6px 15px;
+.active,
+.active:hover {
   background-color: white;
   border: 1px solid #52c41a;
   border-radius: 5px;
@@ -54,7 +54,7 @@
 }
 
 .logOut {
-  padding: 10px 25px;
+  padding: 18px 25px;
   background-color: white;
   border: 1px solid #000000bf;
   border-radius: 5px;
