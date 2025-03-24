@@ -102,9 +102,9 @@ p img {
 }
 
 .confirmation {
-  position: absolute;
-  right: 100px;
-  top: 250px;
+  position: relative;
+  left: 75%;
+  top: 25px;
   padding: 20px;
   width: 250px;
   height: 130px;
