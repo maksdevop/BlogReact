@@ -5,11 +5,12 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/registrationSliсe';
 import { useLoginUserMutation } from '../../store/apiSlice';
 import { Button } from 'antd';
+import { useState } from 'react';
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginUser] = useLoginUserMutation();
-
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -19,6 +20,7 @@ const SignIn = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const response = await loginUser({
         email: data.email,
@@ -37,7 +39,7 @@ const SignIn = () => {
       );
       navigate('/');
     } catch (err) {
-      console.error('Failed to login user: ', err);
+      console.error('Failed to login user:', err);
       if (err.data && err.data.errors) {
         if (err.data.errors['email or password']) {
           setError('password', {
@@ -52,6 +54,8 @@ const SignIn = () => {
       } else {
         console.error('Unexpected error:', err);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,11 +92,7 @@ const SignIn = () => {
           className={errors.password ? `${styles.password} ${styles.inputRed}` : styles.password}
         />
         {errors.password && <p className={styles.error}>{errors.password.message}</p>}
-        <Button
-          type="primary" // Делает кнопку синей, как в Ant Design по умолчанию
-          htmlType="submit" // Это важно для отправки формы
-          className={styles.btnLogin} // Подключение стилей
-        >
+        <Button type="primary" htmlType="submit" className={styles.btnLogin} loading={loading}>
           Login
         </Button>
       </form>

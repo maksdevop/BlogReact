@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateUserMutation } from '../../store/apiSlice';
 import { setUser } from '../../store/registrationSliсe';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [updateUser] = useUpdateUserMutation();
+  const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.registration.user);
   const {
     register,
@@ -24,10 +25,10 @@ const EditProfile = () => {
     for (const [key, value] of Object.entries(user)) {
       setValue(key, value);
     }
-  }, [setValue]);
+  }, [setValue, user]);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    setLoading(true);
     try {
       const response = await updateUser({
         username: data.userName,
@@ -47,6 +48,8 @@ const EditProfile = () => {
       navigate('/');
     } catch (err) {
       console.error('Ошибка обновления профиля:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -135,8 +138,8 @@ const EditProfile = () => {
           />
           {errors.urlImage && <p className={styles.error}>{errors.urlImage.message}</p>}
         </div>
-        <button type="submit" className={styles.btnLogin}>
-          Save
+        <button type="submit" className={styles.btnLogin} disabled={loading}>
+          {loading ? 'Saving...' : 'Save'}
         </button>
       </form>
     </div>

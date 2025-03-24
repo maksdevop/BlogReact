@@ -7,6 +7,7 @@ import styles from './CreateArticle.module.css';
 
 const CreateArticle = ({ mode = 'create', initialData = {}, articleSlug }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState(initialData.tagList || []);
   const [inputValue, setInputValue] = useState('');
 
@@ -46,18 +47,23 @@ const CreateArticle = ({ mode = 'create', initialData = {}, articleSlug }) => {
       body: data.text,
       tagList: tags,
     };
-    if (mode === 'create') {
-      await createArticle(formattedData).unwrap();
-      navigate('/');
-    } else if (mode === 'edit') {
-      await updateArticle({ slug: articleSlug, updatedArticle: formattedData }).unwrap();
-      reset({
-        title: formattedData.title,
-        shortDescription: formattedData.description,
-        text: formattedData.body,
-      });
-      navigate('/');
+
+    setLoading(true);
+    try {
+      if (mode === 'create') {
+        const response = await createArticle(formattedData).unwrap();
+        const createdArticleSlug = response.article.slug;
+        navigate(`/articles/${createdArticleSlug}`);
+      } else if (mode === 'edit') {
+        await updateArticle({ slug: articleSlug, updatedArticle: formattedData }).unwrap();
+        navigate(`/articles/${articleSlug}`);
+      }
+    } catch (error) {
+      console.error('Ошибка при создании/обновлении статьи:', error);
+    } finally {
+      setLoading(false);
     }
+
     reset();
   };
 
@@ -138,7 +144,7 @@ const CreateArticle = ({ mode = 'create', initialData = {}, articleSlug }) => {
             </Button>
           </div>
         </div>
-        <Button type="primary" htmlType="sumbit" className={styles.btnLogin}>
+        <Button type="primary" htmlType="sumbit" loading={loading} className={styles.btnLogin}>
           {mode === 'create' ? 'Send' : 'Save Changes'}
         </Button>
       </form>

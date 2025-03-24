@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/registrationSliсe';
 import { useCreateUserMutation } from '../../store/apiSlice';
 import { Button } from 'antd';
+import { useState } from 'react';
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [createUser] = useCreateUserMutation();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -21,6 +23,7 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const resp = await createUser({
         username: data.userName,
@@ -59,6 +62,8 @@ const SignUp = () => {
       } else {
         console.error('Unexpected error:', err);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -163,6 +168,7 @@ const SignUp = () => {
           htmlType="submit"
           className={!isConsent ? `${styles.btnLogin} ${styles.disabled}` : `${styles.btnLogin}`}
           disabled={!isConsent}
+          loading={loading}
         >
           Create
         </Button>

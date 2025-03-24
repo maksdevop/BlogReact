@@ -22,7 +22,6 @@ function App() {
         <Route path="/profile" element={<EditProfile />} />
         <Route path="/createArticle" element={<CreateArticle />} />
         <Route path="/editArticle/:slug" element={<EditArticle />} />
-
       </Routes>
     </>
   );
